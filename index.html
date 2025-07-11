@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Support Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: auto;
+        padding: 2em;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        margin-bottom: 1em;
+        padding: 0.5em;
+        font-size: 1em;
+      }
+
+      button {
+        padding: 0.5em 1.2em;
+        font-size: 1em;
+      }
+
+      .ticket {
+        border-bottom: 1px solid #ccc;
+        padding: 1em 0;
+      }
+
+      .ticket strong {
+        display: block;
+        margin-bottom: 0.3em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Submit a Ticket</h1>
+
+    <form id="ticket-form">
+      <input type="text" id="title" placeholder="Title" required />
+      <textarea id="body" placeholder="Describe your issue" required></textarea>
+      <button type="submit">Submit Ticket</button>
+    </form>
+
+    <h2>All Tickets</h2>
+    <div id="ticket-list"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
