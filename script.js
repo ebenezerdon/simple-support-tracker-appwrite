@@ -34,7 +34,9 @@ form.addEventListener('submit', async (e) => {
 
 async function loadTickets() {
   try {
-    const response = await databases.listDocuments(databaseId, collectionId)
+    const response = await databases.listDocuments(databaseId, collectionId, [
+      Appwrite.Query.orderDesc('$sequence'),
+    ])
     const ticketList = document.getElementById('ticket-list')
     const ticketCount = document.getElementById('ticket-count')
     const emptyState = document.getElementById('empty-state')
@@ -55,7 +57,7 @@ async function loadTickets() {
         ticketElement.className = 'card u-padding-24'
         ticketElement.innerHTML = `
           <div class="tag is-color-primary u-margin-block-end-12">
-            #${String(index + 1).padStart(3, '0')}
+            #${String(ticket.$sequence).padStart(3, '0')}
           </div>
           <h3 class="heading-level-6 u-margin-block-end-8">${ticket.title}</h3>
           <p class="body-text-2">${ticket.body}</p>
