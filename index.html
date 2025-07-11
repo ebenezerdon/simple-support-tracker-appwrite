@@ -4,50 +4,91 @@
     <meta charset="UTF-8" />
     <title>Support Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-      body {
-        font-family: sans-serif;
-        max-width: 600px;
-        margin: auto;
-        padding: 2em;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        margin-bottom: 1em;
-        padding: 0.5em;
-        font-size: 1em;
-      }
-
-      button {
-        padding: 0.5em 1.2em;
-        font-size: 1em;
-      }
-
-      .ticket {
-        border-bottom: 1px solid #ccc;
-        padding: 1em 0;
-      }
-
-      .ticket strong {
-        display: block;
-        margin-bottom: 0.3em;
-      }
-    </style>
+    <!-- Appwrite Pink Design System -->
+    <link rel="stylesheet" href="https://unpkg.com/@appwrite.io/pink" />
+    <link rel="stylesheet" href="https://unpkg.com/@appwrite.io/pink-icons" />
   </head>
-  <body>
-    <h1>Submit a Ticket</h1>
+  <body class="u-bg-color-neutral-5">
+    <div class="container">
+      <div class="u-max-width-700 u-margin-inline-auto u-padding-32">
+        <!-- New Ticket Form -->
+        <section class="u-margin-block-end-32">
+          <h2 class="heading-level-3 u-margin-block-end-24 u-color-text-accent">
+            Create New Ticket
+          </h2>
 
-    <form id="ticket-form">
-      <input type="text" id="title" placeholder="Title" required />
-      <textarea id="body" placeholder="Describe your issue" required></textarea>
-      <button type="submit">Submit Ticket</button>
-    </form>
+          <div
+            class="card u-padding-24 u-border-width-1 u-border-color-primary"
+          >
+            <form id="ticket-form" class="u-flex u-flex-vertical u-gap-16">
+              <div class="input-text-wrapper is-with-end-button">
+                <label class="label u-margin-block-end-8">
+                  <span class="text u-color-text-accent">Ticket Subject</span>
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  class="input-text"
+                  placeholder="Brief description of your issue"
+                  required
+                />
+              </div>
 
-    <h2>All Tickets</h2>
-    <div id="ticket-list"></div>
+              <div class="input-text-wrapper">
+                <label class="label u-margin-block-end-8">
+                  <span class="text u-color-text-accent"
+                    >Issue Description</span
+                  >
+                </label>
+                <textarea
+                  id="body"
+                  class="input-text"
+                  placeholder="Please provide detailed information about your issue..."
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="u-flex u-main-end">
+                <button type="submit" class="button is-primary is-big">
+                  <span class="icon-send" aria-hidden="true"></span>
+                  <span class="text">Submit Ticket</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- Tickets List -->
+        <section>
+          <div
+            class="u-flex u-cross-center u-main-space-between u-margin-block-end-24"
+          >
+            <h2 class="heading-level-3 u-color-text-accent">Your Tickets</h2>
+            <div class="tag u-color-text-info">
+              <span class="icon-list" aria-hidden="true"></span>
+              <span class="text" id="ticket-count">0 tickets</span>
+            </div>
+          </div>
+
+          <div id="ticket-list" class="u-flex u-flex-vertical u-gap-16"></div>
+
+          <div
+            id="empty-state"
+            class="u-text-center u-padding-48 u-color-text-neutral-100"
+            style="display: none"
+          >
+            <span
+              class="icon-inbox"
+              style="font-size: 3rem; opacity: 0.5"
+            ></span>
+            <p class="body-text-1 u-margin-block-start-16">
+              No tickets yet. Create your first support request above.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

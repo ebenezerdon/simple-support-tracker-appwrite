@@ -27,33 +27,45 @@ form.addEventListener('submit', async (e) => {
 
     form.reset()
     loadTickets()
-  } catch (err) {
-    console.error('Error creating document:', err)
+  } catch (error) {
+    console.error(error)
   }
 })
 
 async function loadTickets() {
   try {
-    const response = await databases.listDocuments(databaseId, collectionId, [
-      Appwrite.Query.orderDesc('$sequence'),
-    ])
+    const response = await databases.listDocuments(databaseId, collectionId)
+    const ticketList = document.getElementById('ticket-list')
+    const ticketCount = document.getElementById('ticket-count')
+    const emptyState = document.getElementById('empty-state')
 
-    const container = document.getElementById('ticket-list')
-    container.innerHTML = ''
+    ticketList.innerHTML = ''
 
-    response.documents.forEach((doc) => {
-      const div = document.createElement('div')
-      div.className = 'ticket'
-      div.innerHTML = `
-        <strong>Ticket #${doc.$sequence}</strong>
-        <p>${doc.title}</p>
-        <small>${doc.body}</small>
-      `
-      container.appendChild(div)
-    })
-  } catch (err) {
-    console.error('Error loading documents:', err)
+    if (response.documents.length === 0) {
+      emptyState.style.display = 'block'
+      ticketCount.textContent = '0 tickets'
+    } else {
+      emptyState.style.display = 'none'
+      ticketCount.textContent = `${response.documents.length} ticket${
+        response.documents.length === 1 ? '' : 's'
+      }`
+
+      response.documents.forEach((ticket, index) => {
+        const ticketElement = document.createElement('div')
+        ticketElement.className = 'card u-padding-24'
+        ticketElement.innerHTML = `
+          <div class="tag is-color-primary u-margin-block-end-12">
+            #${String(index + 1).padStart(3, '0')}
+          </div>
+          <h3 class="heading-level-6 u-margin-block-end-8">${ticket.title}</h3>
+          <p class="body-text-2">${ticket.body}</p>
+        `
+        ticketList.appendChild(ticketElement)
+      })
+    }
+  } catch (error) {
+    console.error(error)
   }
 }
 
-loadTickets() // Load on page load
+loadTickets()
